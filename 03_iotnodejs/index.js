@@ -1,11 +1,38 @@
 // Firebase 設定
 const admin = require("firebase-admin");
-const serviceAccount = require("./keys/oktakepicture-firebase-adminsdk-ntciv-566bc363b1.json");
+const serviceAccount = require("./keys/oktakepicture-firebase-adminsdk-ntciv-7f4e12f2d3.json");
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
     databaseURL: "https://oktakepicture.firebaseio.com"
 });
 const firebaseDatabase = admin.database();
+// Node-webcam
+const NodeWebcam = require("node-webcam");
+//Default options
+const opts = {
+    //Picture related
+    width: 1280,
+    height: 720,
+    quality: 100,
+    //Delay to take shot
+    delay: 0,
+    //Save shots in memory
+    saveShots: true,
+    // [jpeg, png] support varies
+    // Webcam.OutputTypes
+    output: "jpeg",
+    //Which camera to use
+    //Use Webcam.list() for results
+    //false for default device
+    device: false,
+    // [location, buffer, base64]
+    // Webcam.CallbackReturnTypes
+    callbackReturn: "location",
+    //Logging
+    verbose: false
+};
+//Creates webcam instance
+const Webcam = NodeWebcam.create( opts );
 
 
 if(process.argv.length < 4){
@@ -25,13 +52,20 @@ firebaseDatabase.ref('/rooms').child(ROOM_CODE).child(ROOM_ACTION)
         if (fbdbObj.hasOwnProperty('state')==true ||
             fbdbObj.hasOwnProperty('timestamp')==true) {
                 if(fbdbObj.state == 1){
-                    runAction();
+                    runAction(fbdbObj);
                 }
         }
     }
 });
 
 
-function runAction() {
-    
+function runAction(dataObj) {
+    Webcam.capture(`${dataObj.room}-${dataObj.action}-${dataObj.timestamp}`, function( err, data ) {
+        if(err){
+            console.log(err);
+        }
+        else{
+            console.log(data,dataObj);
+        }
+    } );
 }
