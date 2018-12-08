@@ -28,7 +28,7 @@ var opts = {
 //Creates webcam instance
 var Webcam = NodeWebcam.create( opts );
 //Will automatically append location output type
-Webcam.capture( "./photos/test_picture2", function( err, data ) {
+Webcam.capture( "photos/test_picture3", function( err, data ) {
     if(err){
         console.error(err)
         return;

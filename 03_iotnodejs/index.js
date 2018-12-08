@@ -61,7 +61,7 @@ firebaseDatabase.ref('/rooms').child(ROOM_CODE).child(ROOM_ACTION)
 
 
 function runAction(dataObj) {
-    Webcam.capture(`${dataObj.room}-${dataObj.action}-${dataObj.timestamp}`, function( err, data ) {
+    Webcam.capture(`photos/${dataObj.room}-${dataObj.action}-${dataObj.timestamp}`, function( err, data ) {
         if(err){
             console.log(err);
         }
