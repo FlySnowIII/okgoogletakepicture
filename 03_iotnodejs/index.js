@@ -1,18 +1,19 @@
 // Firebase 設定
 const admin = require("firebase-admin");
-const serviceAccount = require("./keys/oktakepicture-firebase-adminsdk-ntciv-7f4e12f2d3.json");
+const serviceAccount = require("./keys/p908-azest-smart-office-firebase-adminsdk-u1na0-a614a7ea5d.json");
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
-    databaseURL: "https://oktakepicture.firebaseio.com"
+    databaseURL: "https://p908-azest-smart-office.firebaseio.com"
 });
 const firebaseDatabase = admin.database();
 // Node-webcam
 const NodeWebcam = require("node-webcam");
+const execSync = require('child_process').execSync;
 //Default options
 const opts = {
     //Picture related
-    width: 1280,
-    height: 720,
+    // width: 1280,
+    // height: 720,
     quality: 100,
     //Delay to take shot
     delay: 0,
@@ -65,7 +66,8 @@ function runAction(dataObj) {
             console.log(err);
         }
         else{
-            console.log(data,dataObj);
+            const result =  execSync(`gsutil cp ${data} gs://p908-azest-smart-office.appspot.com/iot/`).toString();
+            console.log(result);
         }
     } );
 }

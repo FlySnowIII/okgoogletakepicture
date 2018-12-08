@@ -1,6 +1,6 @@
 const request = require('request');
 
-var URL = 'http://localhost:5000/oktakepicture/us-central1/iiftttwebapi';
+var URL = 'http://localhost:5000/p908-azest-smart-office/us-central1/iiftttwebapi';
 
 request.post({
     uri: URL,

@@ -1,10 +1,10 @@
 const functions = require('firebase-functions');
 // Firebase 設定
 const admin = require("firebase-admin");
-const serviceAccount = require("./keys/oktakepicture-firebase-adminsdk-ntciv-566bc363b1.json");
+const serviceAccount = require("./keys/p908-azest-smart-office-firebase-adminsdk-u1na0-a614a7ea5d.json");
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
-    databaseURL: "https://oktakepicture.firebaseio.com"
+    databaseURL: "https://p908-azest-smart-office.firebaseio.com"
 });
 const firebaseDatabase = admin.database();
 
