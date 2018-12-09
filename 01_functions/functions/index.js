@@ -70,13 +70,33 @@ exports.iotphotoupload = functions.storage.object().onFinalize((object)=>{
     // TODO:サムネイル画像作成は後ほど開発する予定
     const thumbnail = filePath;
 
-    // azest6f-takepicture-1544319696590.jpg
     let roomname = filePath.slice(4).split('-')[0];
+    let filedate = '20181209';
+
+    // メニューを更新する
+    firebase.database().ref('/takepicture').child('menu').child(roomname).once('value')
+    .then(function(snapshot) {
+
+        if (!snapshot.hasOwnProperty(filedate)) {
+            const element = object[key];
+            let newmenu = {
+                icon: 'date_range',
+                text: filedate,
+                date: filedate,
+            }
+            firebase.database().ref('/takepicture').child('menu').child(roomname).update(newmenu);
+        }
+
+    });
+
+    // azest6f-takepicture-1544319696590.jpg
+    // 画像データをDBに更新する
     let newFileObj = {
         thumbnail:thumbnail,
         fileBucket:fileBucket,
         filePath:filePath,
-        contentType:contentType
+        contentType:contentType,
+        date: filedate
     };
 
     let newPostKey = firebaseDatabase.ref('/takepicture').child(roomname).push().key;
