@@ -1,6 +1,6 @@
 // Firebase 設定
 const admin = require("firebase-admin");
-const serviceAccount = require("./keys/p908-azest-smart-office-firebase-adminsdk-u1na0-a614a7ea5d.json");
+const serviceAccount = require("./keys/p908-azest-smart-office-firebase-adminsdk-u1na0-ad272cd55f.json");
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
     databaseURL: "https://p908-azest-smart-office.firebaseio.com"
