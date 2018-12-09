@@ -1,7 +1,7 @@
 const functions = require('firebase-functions');
 // Firebase 設定
 const admin = require("firebase-admin");
-const serviceAccount = require("./keys/p908-azest-smart-office-firebase-adminsdk-u1na0-ad272cd55f.json");
+const serviceAccount = require("./keys/p908-azest-smart-office-firebase-adminsdk-u1na0-78dc4cf29a.json");
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
     databaseURL: "https://p908-azest-smart-office.firebaseio.com"
@@ -71,22 +71,25 @@ exports.iotphotoupload = functions.storage.object().onFinalize((object)=>{
     const thumbnail = filePath;
 
     let roomname = filePath.slice(4).split('-')[0];
-    let filedate = '20181209';
+    var timestamp = filePath.split('-')[2].split('.')[0];
+    var dt = new Date(Number(timestamp));
+    var y = dt.getFullYear();
+    var m = ("00" + (dt.getMonth()+1)).slice(-2);
+    var d = ("00" + dt.getDate()).slice(-2);
+    var filedate = y + m + d;
 
     // メニューを更新する
-    firebase.database().ref('/takepicture').child('menu').child(roomname).once('value')
-    .then(function(snapshot) {
-
-        if (!snapshot.hasOwnProperty(filedate)) {
-            const element = object[key];
+    firebaseDatabase.ref('/takepicture').child('menu').child(roomname).once('value',function(snapshot){
+        var menuObj = snapshot.val();
+        if (!menuObj || !menuObj.hasOwnProperty(filedate)) {
             let newmenu = {
                 icon: 'date_range',
                 text: filedate,
                 date: filedate,
             }
-            firebase.database().ref('/takepicture').child('menu').child(roomname).update(newmenu);
+            console.log(newmenu);
+            firebaseDatabase.ref('/takepicture').child('menu').child(roomname).child(filedate).update(newmenu);
         }
-
     });
 
     // azest6f-takepicture-1544319696590.jpg
