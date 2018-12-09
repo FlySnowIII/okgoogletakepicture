@@ -2,7 +2,7 @@
     float: left;
     position: relative;
     text-align: center;
-    margin: 20px;
+    margin: 10px;
     width: 320px;
     height: 180px;
     box-shadow: 0 0 7px #007bff;
@@ -10,6 +10,8 @@
 
 .selectbutton img{
     width:100%;
+    height:100%;
+    object-fit: cover;
 }
 
 .selectbutton label{

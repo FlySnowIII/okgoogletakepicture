@@ -1,7 +1,7 @@
 const functions = require('firebase-functions');
 // Firebase 設定
 const admin = require("firebase-admin");
-const serviceAccount = require("./keys/p908-azest-smart-office-firebase-adminsdk-u1na0-ad272cd55f.json");
+const serviceAccount = require("./keys/p908-azest-smart-office-firebase-adminsdk-u1na0-165f16c8c8.json");
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
     databaseURL: "https://p908-azest-smart-office.firebaseio.com"
@@ -31,6 +31,7 @@ const firebaseDatabase = admin.database();
  * return ifttt is ok
  */
 exports.iiftttwebapi = functions.https.onRequest((request, response) => {
+    console.log('request.body:',request.body);
     // パラメータチェック
     if (request.body.hasOwnProperty('room')==false ||
         request.body.hasOwnProperty('action')==false) {
@@ -60,47 +61,48 @@ exports.iiftttwebapi = functions.https.onRequest((request, response) => {
 /**
  * IoTデバイスから撮った写真をGoogle Cloud Strogeにアップロードした後、Firebase RealtimeDatabaseに写真情報をInsertする
  */
-exports.iotphotoupload = functions.storage.object().onFinalize((object)=>{
-    const fileBucket = object.bucket; // The Storage bucket that contains the file.
-    const filePath = object.name; // File path in the bucket.
-    const contentType = object.contentType; // File content type.
-    // const metageneration = object.metageneration; // Number of times metadata has been generated. New objects have a value of 1.
+// exports.iotphotoupload = functions.storage.object().onFinalize((object)=>{
+//     const fileBucket = object.bucket; // The Storage bucket that contains the file.
+//     const filePath = object.name; // File path in the bucket.
+//     const contentType = object.contentType; // File content type.
+//     // const metageneration = object.metageneration; // Number of times metadata has been generated. New objects have a value of 1.
 
 
-    // TODO:サムネイル画像作成は後ほど開発する予定
-    const thumbnail = filePath;
+//     // TODO:サムネイル画像作成は後ほど開発する予定
+//     const thumbnail = filePath;
 
-    let roomname = filePath.slice(4).split('-')[0];
-    let filedate = '20181209';
+//     let roomname = filePath.slice(4).split('-')[0];
+//     let filedate = '20181209';
 
-    // メニューを更新する
-    firebase.database().ref('/takepicture').child('menu').child(roomname).once('value')
-    .then(function(snapshot) {
+//     // メニューを更新する
+//     firebase.database().ref('/takepicture').child('menu').child(roomname).once('value')
+//     .then(function(snapshot) {
 
-        if (!snapshot.hasOwnProperty(filedate)) {
-            const element = object[key];
-            let newmenu = {
-                icon: 'date_range',
-                text: filedate,
-                date: filedate,
-            }
-            firebase.database().ref('/takepicture').child('menu').child(roomname).update(newmenu);
-        }
+//         if (!snapshot.hasOwnProperty(filedate)) {
+//             const element = object[key];
+//             let newmenu = {
+//                 icon: 'date_range',
+//                 text: filedate,
+//                 date: filedate,
+//             }
+//             firebase.database().ref('/takepicture').child('menu').child(roomname).update(newmenu);
+//         }
 
-    });
+//     });
 
-    // azest6f-takepicture-1544319696590.jpg
-    // 画像データをDBに更新する
-    let newFileObj = {
-        thumbnail:thumbnail,
-        fileBucket:fileBucket,
-        filePath:filePath,
-        contentType:contentType,
-        date: filedate
-    };
+//     // azest6f-takepicture-1544319696590.jpg
+//     // 画像データをDBに更新する
+//     let newFileObj = {
+//         thumbnail:thumbnail,
+//         fileBucket:fileBucket,
+//         filePath:filePath,
+//         contentType:contentType,
+//         date: filedate
+//     };
 
-    let newPostKey = firebaseDatabase.ref('/takepicture').child(roomname).push().key;
-    newFileObj.firebasekey = newPostKey;
-    firebaseDatabase.ref('/takepicture').child(roomname).child(newPostKey).set(newFileObj);
+//     let newPostKey = firebaseDatabase.ref('/takepicture').child(roomname).push().key;
+//     newFileObj.firebasekey = newPostKey;
+//     firebaseDatabase.ref('/takepicture').child(roomname).child(newPostKey).set(newFileObj);
 
-});
+// });
+
