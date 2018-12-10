@@ -64,3 +64,5 @@ keys/
 
 */photos/*
 # 03_iotnodejs/photos/*.*
+
+.DS_Store
