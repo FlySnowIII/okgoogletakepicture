@@ -87,13 +87,6 @@
                 }
             }
         });
-
-        firebase.database().ref('/takepicture').child('menu')
-            .once('value', function(snapshot) {
-                var fbmenu = snapshot.val();
-                console.log('FBMenu:',fbmenu);
-
-            });
     </script>
 </body>
 
