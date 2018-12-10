@@ -11,26 +11,9 @@
     <link href="https://cdn.jsdelivr.net/npm/vuetify/dist/vuetify.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
     <link rel="stylesheet" href="./lib/css/style.css">
-<<<<<<< HEAD
-    <title>Azest Code 908 v 0.1</title>
-    <script src="https://www.gstatic.com/firebasejs/5.7.0/firebase.js"></script>
-    <script>
-    // Initialize Firebase
-    var config = {
-        apiKey: "AIzaSyB5tCoMhQDJPOWqcnU_GgwcPx3MzQddDVU",
-        authDomain: "p908-azest-smart-office.firebaseapp.com",
-        databaseURL: "https://p908-azest-smart-office.firebaseio.com",
-        projectId: "p908-azest-smart-office",
-        storageBucket: "p908-azest-smart-office.appspot.com",
-        messagingSenderId: "593180806560"
-    };
-    firebase.initializeApp(config);
-    </script>
-=======
 
     
 
->>>>>>> b484eec0a67ea2c829da5ab888a5d435c4eaa013
 </head>
 
 <body>
@@ -102,139 +85,8 @@
 
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vuetify/dist/vuetify.js"></script>
-<<<<<<< HEAD
-    <script>
-        var app = new Vue({
-            el: '#app',
-            data: () => ({
-                drawer: null,
-                items: [
-                    { heading: 'AZEST 6F' },
-                    { icon: 'date_range', text: 'Loading...' },
-                    { divider: true },
-                    { icon: 'input', text: 'Logout',type:'logout' }
-                ],
-                photos: [{
-                        title: 'Pre-fab homes',
-                        src: 'https://cdn.vuetifyjs.com/images/cards/house.jpg',
-                        flex: 3
-                    },
-                    {
-                        title: 'Favorite road trips',
-                        src: 'https://cdn.vuetifyjs.com/images/cards/road.jpg',
-                        flex: 3
-                    },
-                    {
-                        title: 'Best airlines',
-                        src: 'https://cdn.vuetifyjs.com/images/cards/plane.jpg',
-                        flex: 3
-                    },
-                    {
-                        title: 'Best airlines',
-                        src: 'https://cdn.vuetifyjs.com/images/cards/plane.jpg',
-                        flex: 3
-                    },
-                    {
-                        title: 'Best airlines',
-                        src: 'https://cdn.vuetifyjs.com/images/cards/plane.jpg',
-                        flex: 3
-                    },
-                    {
-                        title: 'Best airlines',
-                        src: 'https://cdn.vuetifyjs.com/images/cards/plane.jpg',
-                        flex: 3
-                    },
-                    {
-                        title: 'Best airlines',
-                        src: 'https://cdn.vuetifyjs.com/images/cards/plane.jpg',
-                        flex: 3
-                    },
-                    {
-                        title: 'Best airlines',
-                        src: 'https://cdn.vuetifyjs.com/images/cards/plane.jpg',
-                        flex: 3
-                    },
-                    {
-                        title: 'Best airlines',
-                        src: 'https://cdn.vuetifyjs.com/images/cards/plane.jpg',
-                        flex: 3
-                    },
-                    {
-                        title: 'Best airlines',
-                        src: 'https://cdn.vuetifyjs.com/images/cards/plane.jpg',
-                        flex: 3
-                    },
-                    {
-                        title: 'Best airlines',
-                        src: 'https://cdn.vuetifyjs.com/images/cards/plane.jpg',
-                        flex: 3
-                    },
-                    {
-                        title: 'Best airlines',
-                        src: 'https://cdn.vuetifyjs.com/images/cards/plane.jpg',
-                        flex: 3
-                    },
-                    {
-                        title: 'Best airlines',
-                        src: 'https://cdn.vuetifyjs.com/images/cards/plane.jpg',
-                        flex: 3
-                    },
-                    {
-                        title: 'Best airlines',
-                        src: 'https://cdn.vuetifyjs.com/images/cards/plane.jpg',
-                        flex: 3
-                    },
-                    {
-                        title: 'Best airlines',
-                        src: 'https://cdn.vuetifyjs.com/images/cards/plane.jpg',
-                        flex: 3
-                    },
-
-                ]
-            }),
-            props: {
-                source: "www.nbfab.com"
-            },
-            methods:{
-                menuclick:function(item){
-                    console.log(item);
-                }
-            }
-        })
-    </script>
-    <script>
-
-// function test1(){
-//     let filedate = '20181208';
-//     firebase.database().ref('/takepicture').child('menu').child('azest6f').once('value',function(snapshot){
-//         var menuObj = snapshot.val();
-//         if (!menuObj || !menuObj.hasOwnProperty(filedate)) {
-//             let newmenu = {
-//                 icon: 'date_range',
-//                 text: filedate,
-//                 date: filedate,
-//             }
-//             console.log(newmenu);
-//             firebase.database().ref('/takepicture').child('menu').child('azest6f').child(filedate).update(newmenu);
-//         }
-//     });
-// }
-
-// function test2(){
-//     var filePath = "azest6f-takepicture-1544319696590.jpg";
-//     var timestamp = filePath.split('-')[2].split('.')[0];
-//     var dt = new Date(Number(timestamp));
-//     var y = dt.getFullYear();
-//     var m = ("00" + (dt.getMonth()+1)).slice(-2);
-//     var d = ("00" + dt.getDate()).slice(-2);
-//     var yyyymmdd = y + m + d;
-//     console.log(yyyymmdd);
-// }
-    </script>
-=======
     <script src="https://www.gstatic.com/firebasejs/5.7.0/firebase.js"></script>
     <script src="./lib/js/common.js"></script>
->>>>>>> b484eec0a67ea2c829da5ab888a5d435c4eaa013
 </body>
 
 </html>
