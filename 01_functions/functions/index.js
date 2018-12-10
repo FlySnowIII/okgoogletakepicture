@@ -31,6 +31,7 @@ const firebaseDatabase = admin.database();
  * return ifttt is ok
  */
 exports.iiftttwebapi = functions.https.onRequest((request, response) => {
+    console.log('request.body:',request.body);
     // パラメータチェック
     if (request.body.hasOwnProperty('room')==false ||
         request.body.hasOwnProperty('action')==false) {
