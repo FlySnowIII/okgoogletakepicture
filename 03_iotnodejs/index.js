@@ -2,11 +2,11 @@
 const {Storage} = require('@google-cloud/storage');
 // Creates a client
 const storage = new Storage({
-    keyFilename: "./keys/p908-azest-smart-office-firebase-adminsdk-u1na0-165f16c8c8.json"
+    keyFilename: "./keys/p908-azest-smart-office-firebase-adminsdk-u1na0-aa107cb317.json"
 });
 // Firebase 設定
 const admin = require("firebase-admin");
-const serviceAccount = require("./keys/p908-azest-smart-office-firebase-adminsdk-u1na0-ad272cd55f.json");
+const serviceAccount = require("./keys/p908-azest-smart-office-firebase-adminsdk-u1na0-aa107cb317.json");
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
     databaseURL: "https://p908-azest-smart-office.firebaseio.com"
@@ -42,10 +42,7 @@ const opts = {
 const Webcam = NodeWebcam.create(opts);
 // FOR GCS Bucket
 const bucketName = 'p908-azest-smart-office.appspot.com';
-const foldername = './photos/'
-const filename = 'test.txt';
 const gcsfoldername = 'iot'
-
 
 
 if(process.argv.length < 4){
@@ -73,13 +70,15 @@ firebaseDatabase.ref('/rooms').child(ROOM_CODE).child(ROOM_ACTION)
 
 
 function runAction(dataObj) {
-    Webcam.capture(`photos/${dataObj.room}-${dataObj.action}-${dataObj.timestamp}`, function( err, data ) {
+    var filename = `${dataObj.room}-${dataObj.action}-${dataObj.timestamp}`;
+
+    Webcam.capture(`photos/${filename}`, function( err, data ) {
         if(err){
             console.log(err);
         }
         else{
             let filepath = './'+data;
-            let gcsfilepath = `${gcsfoldername}/${filename}`;
+            let gcsfilepath = `${gcsfoldername}/${filename}.jpg`;
             // const result =  execSync(`gsutil cp ${data} gs://p908-azest-smart-office.appspot.com/iot/`).toString();
             // console.log(result);
 
@@ -101,7 +100,7 @@ function runAction(dataObj) {
                     .file(gcsfilepath)
                     .makePublic()
                     .then(() => {
-                        console.log(`gs://${bucketName}/${filename} is now public.`);
+                        console.log(`${filename} is now public.`);
                     })
                     .catch(err => {
                         console.error('ERROR:', err);
