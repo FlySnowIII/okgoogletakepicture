@@ -12,8 +12,8 @@ const storage = new Storage({
 const bucketName = 'p908-azest-smart-office.appspot.com';
 const foldername = './photos/'
 const filename = 'test.txt';
-const filepath = foldername+'test.txt';
 const gcsfoldername = 'iot'
+const filepath = foldername+'test.txt';
 const gcsfilepath = `${gcsfoldername}/${filename}`;
 
 // Uploads a local file to the bucket
