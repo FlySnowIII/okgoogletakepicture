@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@google-cloud/storage": "^2.3.1",
     "firebase-admin": "^6.3.0",
     "node-webcam": "^0.4.6"
   }
