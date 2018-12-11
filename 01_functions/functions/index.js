@@ -1,7 +1,7 @@
 const functions = require('firebase-functions');
 // Firebase 設定
 const admin = require("firebase-admin");
-const serviceAccount = require("./keys/p908-azest-smart-office-firebase-adminsdk-u1na0-78dc4cf29a.json");
+const serviceAccount = require("./keys/p908-azest-smart-office-firebase-adminsdk-u1na0-165f16c8c8.json");
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
     databaseURL: "https://p908-azest-smart-office.firebaseio.com"
@@ -100,7 +100,8 @@ exports.iotphotoupload = functions.storage.object().onFinalize((object)=>{
         fileBucket:fileBucket,
         filePath:filePath,
         contentType:contentType,
-        date: filedate
+        date: filedate,
+        timestamp:timestamp
     };
 
     let newPostKey = firebaseDatabase.ref('/takepicture').child(roomname).push().key;
