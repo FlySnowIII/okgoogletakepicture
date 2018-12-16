@@ -6,7 +6,7 @@ var app = new Vue({
     data: () => ({
         drawer: null,
         items: [
-            { icon: 'dashboard', text: 'Dashboard' ,url:'main.html'},
+            { icon: 'schedule', text: 'Loading...'},
             // { divider: true },
             // { heading: 'AZEST 6F' },
             // { icon: 'date_range', text: 'Loading...' },
@@ -19,15 +19,34 @@ var app = new Vue({
             //     src: 'https://cdn.vuetifyjs.com/images/cards/house.jpg',
             //     flex: 3
             // },
-        ]
+        ],
+        events: [
+            // {id:1,text:'hellp',time:'555'}
+        ],
     }),
     props: {
         source: "www.nbfab.com"
+    },
+    computed: {
+        timeline() {
+            return this.events.slice().reverse()
+        }
     },
     methods:{
         menuclick:function(item){
             if (item.hasOwnProperty('url')) {
                 location.href = item.url;
+                return;
+            }
+            if (item.hasOwnProperty('action')) {
+                switch (item.action) {
+                    case 'logout':
+                        firebase.auth().signOut();
+                        break;
+                    default:
+                        break;
+                }
+                return;
             }
         }
     }
@@ -47,22 +66,49 @@ var config = {
 firebase.initializeApp(config);
 
 /**
+ * Is Login
+ */
+firebase.auth().onAuthStateChanged(function(user) {
+    if (user) {
+        // User is signed in.
+        // var displayName = user.displayName;
+        // var email = user.email;
+        // var emailVerified = user.emailVerified;
+        // var photoURL = user.photoURL;
+        // var isAnonymous = user.isAnonymous;
+        // var uid = user.uid;
+        // var providerData = user.providerData;
+        // ...
+        console.log('Login is sucsses:',user.uid);
+    } else {
+        // User is signed out.
+        location.href = "index.html";
+    }
+});
+
+/**
  * Init Left Menu
  */
-firebase.database().ref('/takepicture').child('menu').once('value').then(function(snapshot) {
+firebase.database().ref('/takepicture').child('menu').on('value',function(snapshot) {
+    app.items = [];
+    app.events = [];
     var fbmenu = snapshot.val();
     //FirebaseDBからメニューデータを獲得する
     for (const key in fbmenu) {
-        //大項目の場合
-        app.items.push({ divider: true });
-        app.items.push({ heading: key });
         //小項目を初期するため、まず最新順に表示するようにObjectを反転してArrayに変換する
         const roomArray = objtoarray(fbmenu[key]);
         for (const iterator of roomArray) {
             iterator.url = 'photolist.html?room='+key+'&date='+iterator.date;
-            app.items.push(iterator);
+            app.items.unshift(iterator);
+            app.events.unshift({id:iterator.text,text:iterator.text,time:key,url:iterator.url});
         }
+        //大項目の場合
+        app.items.unshift({ heading: key });
+        app.items.unshift({ divider: true });
     }
+    app.items.unshift({ icon: 'dashboard', text: 'Dashboard' ,url:'main.html'});
+    app.items.push({ divider: true });
+    app.items.push({ icon: 'power_settings_new', text: 'Logout' ,action:'logout'});
 });
 
 
